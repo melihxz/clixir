@@ -1,0 +1,39 @@
+(* EBNF Grammar for Clixir Syntax *)
+
+program         ::= {statement} ;
+
+statement       ::= variable_declaration | function_declaration | expression ;
+
+(* Elixir-like variable declaration with dynamic typing *)
+variable_declaration ::= identifier "=" expression ";" ;
+
+(* Function declaration with Elixir-style syntax *)
+function_declaration ::= "def" identifier "(" [parameter_list] ")" ":" {statement} "end" ;
+
+parameter_list  ::= parameter {"," parameter} ;
+
+parameter       ::= identifier ;
+
+(* Expressions can include literals, identifiers, function calls, or operations *)
+expression      ::= literal | identifier | function_call | binary_operation ;
+
+literal         ::= integer_literal | string_literal | boolean_literal ;
+
+integer_literal ::= digit {digit} ;
+
+string_literal  ::= '"' {character} '"' ;
+
+boolean_literal ::= "true" | "false" ;
+
+(* Function call similar to C++ *)
+function_call   ::= identifier "(" [argument_list] ")" ;
+
+argument_list   ::= expression {"," expression} ;
+
+(* Basic binary operations *)
+binary_operation ::= expression operator expression ;
+
+operator        ::= "+" | "-" | "*" | "/" | "==" | "!=" ;
+
+(* Identifier rules *)
+identifier      ::= letter {letter | digit} ;
